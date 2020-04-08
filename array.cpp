@@ -29,10 +29,21 @@ class Array {
 		return *ptr;
 	} 
 
+	int getLength() { 
+		return length;
+	}
+
+	int indexOf(T obj) {
+		for(int k = 0; k < size(); k++) 
+			if(ptr[k] == obj) return k;
+		return -1;
+	}
+
 	void set(int index, T element) {
 		if( index > length - 1) throw 20;
 		ptr[index] = element;
 	}
+
 	void add(T element) {
 		T* newPtr = new T[length];
 		for(int i = 0; i < length; i++) {
@@ -73,7 +84,9 @@ class Array {
 	}
 
 	int size() { return length; }
+
 	bool isEmpty() { return size() == 0; }
+
 	void clear() {
 		for (int i = 0; i < length; i++) {
 			(*ptr)[i] = 0;
@@ -81,7 +94,8 @@ class Array {
 		length = 0;
 	}
 
- 	void setLength (int myLength) {  length = myLength; }  	
+ 	void setLength (int myLength) {  length = myLength; }  
+
 	void toString() {
 		for(int i = 0; i < length; i++) {
 			cout << ptr[i] << "\n";
@@ -90,7 +104,7 @@ class Array {
 };
 
 
-int main() {
+int main(int argc, char *argv[]) {
 	try {
 		cout << "Test the implementation of an Array in C++" << "\n";
 		string animals[4] = {"Elephant", "Lion", "Deer", "Tiger"};
@@ -98,12 +112,28 @@ int main() {
 		
 		newArr.removeAt(3);
 		newArr.add("soosk");
+		cout << "Element 'soosk' was added to the array" << "\n";
 		newArr.add("soosk");
+		cout << "Element 'soosk' was added to the array" << "\n";
 		newArr.toString();
 		newArr.remove("soosk");
+		cout << "Element 'soosk' was removed from the array" << "\n";
 		newArr.toString();
+		string search = "Lion";
+		printf("Found %s in the array with the index of ", search.c_str());
+		if (argv[1]) 
+			search = argv[1];
+		if (newArr.indexOf(search) != -1) {
+			cout << "Found " << search << " in the array with the index of "<< newArr.indexOf(search) << "\n";
+		}
+			
+		else 
+			cout << "The object " << search << " was NOT found in the array \n";
+	
 		newArr.clear();
+		cout << "The array is cleared and its length is now " << newArr.getLength() << "\n";
 		newArr.toString();
+
 
 	} catch(int e) {
 		 if(e == 20) {
